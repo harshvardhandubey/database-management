@@ -1,0 +1,167 @@
+create table Employee
+(
+e_no int,
+e_name varchar(10),
+e_jobtitle varchar(30),
+e_joindate int,
+e_sal int,
+e_deptno int,
+e_dname varchar(30),
+primary key(e_no));
+
+Command(s) completed successfully.
+
+insert into Employee values(1,'Harsh','Managing Director',1997,1000000,101,'administrator');
+
+(1 row(s) affected)
+
+insert into Employee values(2,'Daya','Manager',1990,10000,102,'IT');
+
+(1 row(s) affected)
+
+insert into Employee values(3,'Manoj','Peon',1986,1000,103,'Staff');
+
+(1 row(s) affected)
+
+insert into Employee values(20,'Dev','CEO',2016,100000,104,'administrator');
+
+(1 row(s) affected)
+
+insert into Employee values(24,'Meera','Manager',2015,120000,105,'administration');
+
+(1 row(s) affected)
+
+insert into Employee values(25,'Aman','Marketing head',2014,120001,20,'administration');
+
+(1 row(s) affected)
+
+insert into Employee values(26,'Aryan','President',1997,1000000,20,'administration');
+
+(1 row(s) affected)
+
+select*from Employee
+
+e_no        e_name     e_jobtitle                     e_joindate  e_sal       e_deptno    e_dname
+----------- ---------- ------------------------------ ----------- ----------- ----------- ------------------------------
+1           Harsh      Managing Director              1997        1000000     101         administrator
+2           Daya       Manager                        1990        10000       102         IT
+3           Manoj      Peon                           1986        1000        103         Staff
+20          Dev        CEO                            2016        100000      104         administrator
+24          Meera      Manager                        2015        120000      105         administration
+25          Aman       Marketing head                 2014        120001      20          administration
+26          Aryan      President                      1997        1000000     20          administration
+
+(7 row(s) affected)
+
+select e_name from Employee where e_dname='IT'
+
+e_name
+----------
+Daya
+
+(1 row(s) affected)
+
+select e_name from Employee where e_jobtitle='Manager'
+
+e_name
+----------
+Daya
+Meera
+
+(2 row(s) affected)
+
+select e_name,e_joindate from Employee where e_name like 'M%'
+
+e_name     e_joindate
+---------- -----------
+Manoj      1986
+Meera      2015
+
+(2 row(s) affected)
+
+select e_name from Employee where e_sal>5000 AND (e_deptno=101 OR e_deptno=102)
+
+e_name
+----------
+Harsh
+Daya
+
+(2 row(s) affected)
+
+select e_name from Employee where e_joindate between 1990 AND 2012
+
+e_name
+----------
+Harsh
+Daya
+Aryan
+
+(3 row(s) affected)
+
+select e_name,e_joindate from Employee where e_name like '_e%'
+
+e_name     e_joindate
+---------- -----------
+Dev        2016
+Meera      2015
+
+(2 row(s) affected)
+
+select e_name from Employee where e_jobtitle not like 'Manager'
+
+e_name
+----------
+Harsh
+Manoj
+Dev
+Aman
+Aryan
+
+(5 row(s) affected)
+
+select e_joindate from Employee order by e_joindate ASC
+
+e_joindate
+-----------
+1986
+1990
+1997
+1997
+2014
+2015
+2016
+
+(7 row(s) affected)
+
+select avg(e_sal) from Employee where e_deptno=20
+-----------
+560000
+
+(1 row(s) affected)
+
+select avg(e_sal) from Employee group by e_deptno
+
+
+-----------
+560000
+1000000
+10000
+1000
+100000
+120000
+
+(6 row(s) affected)
+
+select e_name from Employee where e_sal=(select MIN(e_sal) from Employee)
+
+e_name
+----------
+Manoj
+
+(1 row(s) affected)
+
+
+
+
+
+

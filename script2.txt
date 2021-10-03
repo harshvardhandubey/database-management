@@ -1,0 +1,216 @@
+create table Employee1
+(
+ename varchar(15),
+street varchar(10),
+city varchar(10),
+primary key(ename));
+
+Command(s) completed successfully.
+
+create table works
+(
+ename varchar(15),
+cname varchar(15),
+sal int);
+
+Command(s) completed successfully.
+
+create table Company
+(
+cname varchar(15),
+city varchar(15),
+primary key(cname));
+
+Command(s) completed successfully.
+
+create table Manages
+(
+ename varchar(15),
+mgrname varchar(15));
+
+Command(s) completed successfully.
+
+insert into Employee1 values('Harsh','Manhattan','New York');
+
+(1 row(s) affected)
+
+insert into Employee1 values('Aryan','Brooklyn','New York');
+
+(1 row(s) affected)
+
+insert into Employee1 values('Muskan','Pali Hill','Mumbai');
+
+(1 row(s) affected)
+
+insert into Employee1 values('Aman','Chembur','Mumbai');
+
+(1 row(s) affected)
+
+insert into Employee1 values('Chandesh','Andheri','Mumbai');
+
+(1 row(s) affected)
+
+insert into works values('Harsh','FBC',1000000);
+
+(1 row(s) affected)
+
+insert into works values('Aryan','FBC',100000);
+
+(1 row(s) affected)
+
+insert into works values('Muskan','SBC',1000);
+
+(1 row(s) affected)
+
+insert into works values('Aman','SBC',10000);
+
+(1 row(s) affected)
+
+insert into works values('Chandesh','SBC',9000);
+
+(1 row(s) affected)
+
+insert into Company values('FBC','New York');
+
+(1 row(s) affected)
+
+insert into Company values('SBC','Mumbai');
+
+(1 row(s) affected)
+
+insert into Manages values('Muskan','Harsh');
+
+(1 row(s) affected)
+
+insert into Manages values('Chandesh','Harsh');
+
+(1 row(s) affected)
+
+insert into Manages values('Aman','Aryan');
+
+(1 row(s) affected)
+
+select*from Employee1
+
+ename           street     city
+--------------- ---------- ----------
+Aryan           Brooklyn   New York
+Muskan           Pali Hill  Mumbai
+Aman            Chembur    Mumbai
+Chandesh        Andheri    Mumbai
+Harsh           Manhattan  New York
+
+(5 row(s) affected)
+
+select*from works
+
+ename           cname           sal
+--------------- --------------- -----------
+Harsh           FBC             1000000
+Aryan           FBC             100000
+Muskan           SBC             1000
+Aman            SBC             10000
+Chandesh        SBC             9000
+
+(5 row(s) affected)
+
+select*from Company
+
+cname           city
+--------------- ---------------
+FBC             New York
+SBC             Mumbai
+
+(2 row(s) affected)
+
+select*from Manages
+
+ename           mgrname
+--------------- ---------------
+Muskan           Harsh
+Chandesh        Harsh
+Aman            Aalia
+
+(3 row(s) affected)
+
+select Employee1.ename,city from Employee1,works where Employee1.ename=works.ename AND cname='FBC'
+
+ename           city
+--------------- ----------
+Harsh           New York
+Aryan           New York
+
+(2 row(s) affected)
+
+select Employee1.ename,Employee1.street,Employee1.city from Employee1,works where Employee1.ename=works.ename AND cname='FBC' AND sal>10000
+
+ename           street     city
+--------------- ---------- ----------
+Harsh           Manhattan  New York
+Aryan           Brooklyn   New York
+
+(2 row(s) affected)
+
+select Employee1.ename from Employee1,works where Employee1.ename=works.ename AND sal>ALL(select sal from works where cname='SBC') 
+
+ename
+---------------
+Harsh
+Aryan
+
+(2 row(s) affected)
+
+update works set sal=sal+(0.1*sal)
+
+(5 row(s) affected)
+
+update works set sal=sal+(0.1*sal) where cname='FBC'
+
+(2 row(s) affected)
+
+select*from works
+
+ename           cname           sal
+--------------- --------------- -----------
+Harsh           FBC             1331000
+Aryan           FBC             133100
+Muskan           SBC             1100
+Aman            SBC             11000
+Chandesh        SBC             9900
+
+(5 row(s) affected)
+
+select R.ename,R.city from Employee1 R,Employee1 P,Manages M where P.ename=M.ename AND R.ename=M.mgrname AND P.ename=R.ename
+
+ename           city
+--------------- ----------
+
+(0 row(s) affected)
+
+select Employee1.ename from Employee1,Company where Employee1.city=Company.city
+
+ename
+---------------
+Aryan
+Muskan
+Aman
+Chandesh
+Harsh
+
+(5 row(s) affected)
+
+select cname from works GROUP BY cname having SUM(sal)<=all(select SUM(sal) from works GROUP BY cname)
+
+cname
+---------------
+SBC
+
+(1 row(s) affected)
+
+select cname from works GROUP BY cname having AVG(sal)>=all(select AVG(sal) from works where cname='FBC')
+
+cname
+---------------
+FBC
+
+(1 row(s) affected)

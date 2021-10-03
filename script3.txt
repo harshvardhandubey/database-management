@@ -1,0 +1,63 @@
+create table Customer1 
+(cid int,
+ cname varchar(15),
+ ctelno int,
+ csal int,
+ primary key(cid)
+ );
+ insert into Customer1 values(1,'Manoj',22874512,12000);
+ insert into Customer1 values(2,'Rahul',22877842,13000);
+ insert into Customer1 values(3,'Prajwal',28890223,17000);
+ insert into Customer1 values(4,'Sheetal',28845761,9000);
+ insert into Customer1 values(5,'Roshni',2986512,12000);
+ insert into Customer1 values(6,'Hitesh',22864732,14000);
+ insert into Customer1 values(7,'Rohan',22874512,12000);
+ insert into Customer1 values(8,'Mohan',22874512,16000);
+ insert into Customer1 values(9,'Francis',22874512,18000);
+ insert into Customer1 values(10,'Rakesh',22874512,19000);
+
+ 
+ select * from Customer1;
+
+cid         cname           ctelno      csal
+-------  --------------- ----------- -----------
+1           Manoj           22874512    12000
+2           Rahul            22877842    13000
+3           Prajwal        28890223    17000
+4           Sheetal         28845761    9000
+5           Roshni          2986512     12000
+6           Hitesh          22864732    14000
+7           Rohan           22874512    12000
+8           Mohan           22874512    16000
+9           Francis         22874512    18000
+10         Rakesh          22874512    19000
+
+create view allCustomer as(select cid,cname,csal from Customer1 where csal between 10000 and 15000);
+ 
+ select * from allCustomer;
+
+cid         cname           csal
+-------- --------------- -----------
+1           Manoj           12000
+2           Rahul            13000
+5           Roshni          12000
+6           Hitesh          14000
+7           Rohan           12000
+
+ select cname from allCustomer where csal<13000;
+
+cname
+---------------
+Manoj
+Roshni
+Rohan
+
+
+ select cname from allCustomer where cname like '%l';
+
+cname
+---------------
+Rahul
+
+
+

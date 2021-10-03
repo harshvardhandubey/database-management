@@ -1,0 +1,88 @@
+create user harsh
+identified by harsh;
+
+User created.
+
+0.29 seconds
+
+
+
+create table student
+(sid int,
+sname varchar(20));
+
+insert into student values(1,'aryan');
+insert into student values(2,'Jai');
+ select * from student;
+
+
+SID	SNAME
+1	aryan
+2	jai
+2 rows returned in 0.03 seco
+
+
+
+grant select,insert
+on student
+to harsh;
+
+Statement processed
+0.07 seconds
+	
+
+select * from system.student
+
+SID	SNAME
+1	aryan
+2	jai
+2 rows returned in 0.01 seconds
+
+
+insert into system.student values(3,'aman');
+
+select * from system.student
+
+			
+SID	SNAME
+1	aryan
+2	jai
+3	aman
+3 rows returned in 0.00 seconds	     
+
+
+grant delete
+on student
+to harsh
+with grant option;
+
+Statement processed.
+	
+create user harsh1
+identified by harsh1;
+
+
+User created.
+
+
+0.03 seconds
+		
+
+
+grant delete 
+on system.student
+to harsh1;
+
+Statement processed.
+
+revoke select
+on student
+from harsh;
+
+
+Statement processed.
+
+
+select * from system.student;
+
+ORA-01031: insufficient privileges

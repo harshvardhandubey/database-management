@@ -1,0 +1,62 @@
+create table Emplyoee2
+ (eno int primary key,
+  ename varchar(10) not null,
+  gender char not null check(gender='M' or gender='F'),
+  sal int not null default 1000,
+  eadd varchar(10) not null,
+  dno int
+  );
+
+Command(s) completed successfully.
+
+ create table department1
+ (dno int primary key,
+  dname varchar(10),
+  dloc varchar(10)
+  );
+
+  
+  alter table Emplyoee2 add foreign key(dno) references department1(dno);
+  
+    
+  insert into department1 values(1,'IT','Floor 3');
+  insert into department1 values(2,'Comp. Sci','Floor 4');
+  insert into department1 values(3,'Mech','Floor 1');
+
+  insert into Emplyoee2 values(null,'Rohan','M',DEFAULT,'Mumbai',1);
+
+Msg 515, Level 16, State 2, Line 1
+Cannot insert the value NULL into column 'eno', table 'prathmesh10.dbo.Emplyoee2'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+
+ insert into Emplyoee2 values(1,null,'M',DEFAULT,'Mumbai',1);
+
+ Msg 515, Level 16, State 2, Line 1
+Cannot insert the value NULL into column 'eno', table 'prathmesh10.dbo.Emplyoee2'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+
+  insert into Emplyoee2 values(1,'Rohan','S',DEFAULT,'Mumbai',1);
+  
+Msg 547, Level 16, State 0, Line 1
+The INSERT statement conflicted with the CHECK constraint "CK__Emplyoee2__gende__37A5467C". The conflict occurred in database "prathmesh10", table "dbo.Emplyoee2", column 'gender'.
+The statement has been terminated.
+
+  insert into Emplyoee2 values(1,'Rohan','M',DEFAULT,'Mumbai',4);
+
+Msg 547, Level 16, State 0, Line 1
+The INSERT statement conflicted with the FOREIGN KEY constraint "FK__Emplyoee2__dno__3D5E1FD2". The conflict occurred in database "prathmesh10", table "dbo.department1", column 'dno'.
+The statement has been terminated.
+
+  insert into Emplyoee2 values(1,'Rohan','M',DEFAULT,'Mumbai',3);
+
+ delete from department1 where dno=3;
+
+Msg 547, Level 16, State 0, Line 1
+The DELETE statement conflicted with the REFERENCE constraint "FK__Emplyoee2__dno__3D5E1FD2". The conflict occurred in database "prathmesh10", table "dbo.Emplyoee2", column 'dno'.
+The statement has been terminated.
+
+  delete from Emplyoee2 where dno=3;
+
+ delete from department1 where dno=3;
+
+(1 row(s) affected)
